@@ -4,7 +4,7 @@
 
 const SUPABASE_URL = 'https://wvhomqgvkqtenccwtjen.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2aG9tcWd2a3F0ZW5jY3d0amVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3ODk5NzMsImV4cCI6MjA5MTM2NTk3M30.JtDsspL0oX_sNqNzL1Z4wxwhvFG5kJHpCjIuejiEiMw';
-const TOGETHER_KEY = 'tgp_v1_LRCKrQxT1x2Cwt5Wqsg6npQ_LrjpTLHremWQDRWcHBQ';
+const IA_ENDPOINT = '/.netlify/functions/ia';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
