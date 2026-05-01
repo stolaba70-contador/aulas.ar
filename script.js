@@ -3762,7 +3762,7 @@ const grupoIdCapturado = selectedOption?.dataset?.grupo || currentPerfil?.grupo_
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    max_tokens: 4000,,
+    max_tokens: 4000,
     messages: [{ role: 'user', content: `Sos un profesor universitario. Analizá este fragmento de material de estudio y creá una filmina detallada por cada concepto, definición o tema que aparezca.
 
 REGLAS IMPORTANTES:
