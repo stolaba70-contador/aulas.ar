@@ -571,19 +571,11 @@ Formato exacto:
 El campo "correcta" es el índice (0-4) de la opción correcta.`;
 
   try {
-    const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+    const response = await fetch(IA_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TOGETHER_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-        max_tokens: 2000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 2000 })
     });
-
     const data = await response.json();
     const texto = data.choices?.[0]?.message?.content || '';
     const clean = texto.replace(/```json|```/g, '').trim();
@@ -2970,21 +2962,13 @@ Por favor respondé con este formato exacto:
 Sé específico, constructivo y basate únicamente en el contenido de la app. Si no respondió alguna pregunta, indicalo.`;
 
   try {
-    const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+    const response = await fetch(IA_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TOGETHER_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 1000 })
     });
-
     const data = await response.json();
-    const texto = data.choices?.[0]?.message?.content || 'No se pudo obtener el análisis.';
+    const texto = data.choices?.[0]?.message?.content || 'No se pudo obtener el análisis.';;
 
     // Formatear el texto con saltos de línea
     textDiv.innerHTML = texto
@@ -3774,15 +3758,11 @@ const grupoIdCapturado = selectedOption?.dataset?.grupo || currentPerfil?.grupo_
     for (let ci = 0; ci < chunks.length; ci++) {
       preview.innerHTML = `<div class="mc-pdf-preview-title">⏳ Procesando bloque ${ci + 1} de ${chunks.length}...</div>`;
 
-      const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+      const response = await fetch(IA_ENDPOINT, {
   method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${TOGETHER_KEY}`,
-    'Content-Type': 'application/json'
-  },
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-    max_tokens: 4000,
+    max_tokens: 4000,,
     messages: [{ role: 'user', content: `Sos un profesor universitario. Analizá este fragmento de material de estudio y creá una filmina detallada por cada concepto, definición o tema que aparezca.
 
 REGLAS IMPORTANTES:
@@ -4782,22 +4762,17 @@ No uses markdown ni asteriscos. Texto plano solamente.
 Máximo 300 palabras por respuesta.`;
 
 try {
-    const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+    const response = await fetch(IA_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TOGETHER_KEY}`
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-        max_tokens: 800,
         messages: [
           { role: 'system', content: systemPrompt },
           ...profeHistorial.slice(-10)
-        ]
+        ],
+        max_tokens: 800
       })
     });
-
     const data = await response.json();
     const respuesta = data.choices?.[0]?.message?.content || 'No pude procesar tu pregunta. Intentá de nuevo.';
 
@@ -5521,23 +5496,19 @@ Respondé siempre en español argentino, de forma concisa (máximo 100 palabras)
 No uses markdown ni asteriscos. Texto plano solamente. Hablás directamente con el alumno.`;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`, {
+    const response = await fetch(IA_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [
-          ...consultaHistorial.slice(-8).map(m => ({
-            role: m.role === 'assistant' ? 'model' : 'user',
-            parts: [{ text: m.content }]
-          }))
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...consultaHistorial.slice(-8)
         ],
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: { maxOutputTokens: 300 }
+        max_tokens: 300
       })
     });
-
     const data = await response.json();
-    const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude procesar tu pregunta. Intentá de nuevo.';
+    const respuesta = data.choices?.[0]?.message?.content || 'No pude procesar tu pregunta. Intentá de nuevo.';
     consultaHistorial.push({ role: 'assistant', content: respuesta });
     agregarMensajeConsulta('profe', respuesta);
     hablarConsulta(respuesta);
