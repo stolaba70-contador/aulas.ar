@@ -2649,6 +2649,7 @@
   right: -380px;
   width: 360px;
   height: 100vh;
+  height: 100dvh;
   background: var(--dark2, #0f0f1a);
   border-left: 1px solid var(--border);
   display: flex;
@@ -2762,6 +2763,11 @@
 
 @media (max-width: 600px) {
   .profe-sidebar { width: 100vw; right: -100vw; }
+  .profe-input-wrap {
+    position: sticky;
+    bottom: 0;
+    background: var(--dark2, #0f0f1a);
+  }
 }
 
 .tts-btn {
