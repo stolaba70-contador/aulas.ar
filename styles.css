@@ -2812,7 +2812,7 @@
   min-height: 92vh !important;
   background: linear-gradient(rgba(10,6,2,0.82), rgba(10,6,2,0.92)), url('aula.webp') center/cover no-repeat;
   padding: 24px !important;
-  overflow: hidden !important;
+  overflow-y: auto !important;
 }
 
 .exam-layout {
