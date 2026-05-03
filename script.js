@@ -5779,7 +5779,7 @@ Sé breve y directo. Respondé en español argentino.`;
     });
     const data = await response.json();
     feedback = data.choices?.[0]?.message?.content || 'No se pudo obtener feedback.';
-    const puntajeMatch = feedback.match(/[Pp]untaje[:\s]+([1-9]|10)/);
+    const puntajeMatch = feedback.match(/Puntaje[^0-9]*([1-9]|10)/i);
     puntaje = puntajeMatch ? parseInt(puntajeMatch[0]) : null;
   } catch (e) {
     feedback = 'Sin feedback disponible (error de IA).';
