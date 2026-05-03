@@ -5741,7 +5741,7 @@ async function enviarRecall() {
 const nivel = (count || 0) + 1;
 
   const todasFilminas = window.filminasActuales || [];
-  const filminasLeidas = todasFilminas.filter(f => filminas_leidas_sesion.includes(f.id));
+  const filminasLeidas = todasFilminas.filter(f => filminas_leidas_sesion.includes(parseInt(f.id)));
   const contexto = filminasLeidas.map(f => `- ${f.titulo}: ${f.contenido.replace(/<[^>]*>/g, ' ').substring(0, 200)}`).join('\n');
 
   const prompt = `Sos un profesor universitario evaluando el resumen de un alumno de Contador Público.
@@ -5805,10 +5805,11 @@ Sé breve y directo. Respondé en español argentino.`;
 }
 
 function registrarFilminaLeida(id) {
-  if (!filminas_leidas_sesion.includes(id)) {
-    filminas_leidas_sesion.push(id);
+  const idNum = parseInt(id);
+  if (!filminas_leidas_sesion.includes(idNum)) {
+    filminas_leidas_sesion.push(idNum);
   }
-} 
+}
 
 function filtrarSesionesPomodoro() {
   const fecha = document.getElementById('pomodoro-filtro-fecha')?.value;
