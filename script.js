@@ -5765,23 +5765,17 @@ Sé breve y directo. Respondé en español argentino.`;
   let feedback = 'Sin feedback disponible.';
   let puntaje = null;
 
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+ try {
+    const response = await fetch(IA_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        messages: [{ role: 'user', content: prompt }]
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 400
       })
     });
     const data = await response.json();
-    feedback = data.content?.[0]?.text || 'No se pudo obtener feedback.';
+    feedback = data.choices?.[0]?.message?.content || 'No se pudo obtener feedback.';
     const puntajeMatch = feedback.match(/\b([1-9]|10)\b/);
     puntaje = puntajeMatch ? parseInt(puntajeMatch[0]) : null;
   } catch (e) {
