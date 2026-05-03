@@ -5746,19 +5746,22 @@ const nivel = (count || 0) + 1;
 
   const prompt = `Sos un profesor universitario evaluando el resumen de un alumno de Contador Público.
 
-El alumno acaba de leer estas filminas:
+El alumno leyó EXCLUSIVAMENTE estas filminas:
 ${contexto || '(no se registraron filminas específicas)'}
 
 Resumen del alumno:
 "${resumen}"
 
+Tu tarea es evaluar si el resumen refleja correctamente el contenido de las filminas. 
+IMPORTANTE: Solo evaluá en base al contenido de las filminas. No agregues conceptos, definiciones ni correcciones que no estén en las filminas. Si el alumno omite algo, señalá qué parte de la filmina no mencionó. Si agrega algo incorrecto, indicá qué dice la filmina al respecto.
+
 Nivel del alumno: sesión número ${nivel}.
-${nivel <= 3 ? 'Es principiante, sé muy permisivo y alentador. Valorá el intento.' : nivel <= 10 ? 'Tiene experiencia básica. Señalá errores conceptuales con amabilidad.' : 'Es avanzado. Exigí precisión técnica y señalá cualquier imprecisión.'}
+${nivel <= 3 ? 'Sé permisivo y alentador. Valorá el intento aunque sea incompleto.' : nivel <= 10 ? 'Señalá con amabilidad qué partes de las filminas no fueron mencionadas.' : 'Exigí que el resumen refleje con precisión el contenido exacto de las filminas.'}
 
 Respondé con:
 1. Un puntaje del 1 al 10
-2. Dos o tres líneas de feedback concreto
-3. Si corresponde, un concepto que debería repasar
+2. Dos o tres líneas de feedback basado SOLO en las filminas
+3. Si corresponde, qué parte de la filmina debería repasar
 
 Sé breve y directo. Respondé en español argentino.`;
 
