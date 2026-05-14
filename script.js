@@ -5412,18 +5412,28 @@ async function enviarEvaluacionFilminas() {
 
   // Llamadas en paralelo a la IA
   const evaluaciones = await Promise.all(resumenes.map(async ({ filmina, texto }) => {
-    const contenidoTexto = (filmina.contenido || '').replace(/<[^>]*>/g, ' ').substring(0, 300);
-    const prompt = `Sos un evaluador de aprendizaje universitario. El alumno estudió esta filmina de contabilidad:
-Título: ${filmina.titulo}
-Contenido: ${contenidoTexto}
+    const contenidoTexto = (filmina.contenido || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 600);
+    const prompt = `Sos un evaluador de aprendizaje universitario. Tu única tarea es comparar lo que escribió el alumno contra el contenido exacto de la filmina.
 
-El alumno escribió:
+CONTENIDO EXACTO DE LA FILMINA:
+Título: ${filmina.titulo}
+${contenidoTexto}
+
+LO QUE ESCRIBIÓ EL ALUMNO:
 "${texto}"
 
-Evaluá del 1 al 10 qué tan bien comprendió el contenido de la filmina.
+CRITERIO DE EVALUACIÓN:
+- 9-10: menciona todos los puntos clave del contenido de la filmina
+- 7-8: menciona la mayoría de los puntos, puede omitir algún detalle menor
+- 5-6: menciona algunos puntos pero omite partes importantes
+- 3-4: menciona muy poco del contenido real de la filmina
+- 1-2: lo que escribió no refleja el contenido de la filmina
+
+IMPORTANTE: No valorés si el alumno agrega cosas nuevas o explica con sus propias palabras en profundidad. Solo evaluá si cubrió el contenido de la filmina. Si la filmina lista elementos, verificá que el alumno los haya mencionado todos.
+
 Respondé EXACTAMENTE con este formato sin texto adicional:
 PUNTAJE: [número del 1 al 10]
-FEEDBACK: [1 oración breve y directa en español argentino]`;
+FEEDBACK: [1 oración en español argentino indicando qué cubrió bien y qué le faltó mencionar de la filmina]`;
 
     try {
       const res = await fetch(IA_ENDPOINT, {
