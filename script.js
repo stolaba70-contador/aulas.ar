@@ -5429,7 +5429,12 @@ CRITERIO DE EVALUACIÓN:
 - 3-4: menciona muy poco del contenido real de la filmina
 - 1-2: lo que escribió no refleja el contenido de la filmina
 
-IMPORTANTE: No valorés si el alumno agrega cosas nuevas o explica con sus propias palabras en profundidad. Solo evaluá si cubrió el contenido de la filmina. Si la filmina lista elementos, verificá que el alumno los haya mencionado todos.
+IMPORTANTE:
+- No valorés si el alumno agrega cosas nuevas o explica en profundidad. Solo evaluá si cubrió el contenido.
+- No penalices por no mencionar el título de la filmina. El título no es parte del contenido a evaluar.
+- No penalices errores ortográficos, falta de tildes, mayúsculas, comas ni signos de puntuación.
+- No penalices variaciones menores de género o número en las palabras (ej: "contemplados" en lugar de "contempladas" es correcto). Solo penalizá si la palabra cambia completamente el significado.
+- Si la filmina lista elementos, verificá que el alumno los haya mencionado todos.
 
 Respondé EXACTAMENTE con este formato sin texto adicional:
 PUNTAJE: [número del 1 al 10]
