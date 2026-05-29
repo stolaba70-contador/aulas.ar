@@ -3479,7 +3479,7 @@ async function guardarFilminasPDF(filminas, unidadId, grupoId) {
    TRANSCRIPCIÓN DE VOZ CON GROQ WHISPER
    ════════════════════════════════════════════════ */
 
-const GROQ_KEY = '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';
+const GROQ_KEY = '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';
 
 let mediaRecorder = null;
 let audioChunks = [];
