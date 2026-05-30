@@ -3563,17 +3563,14 @@ async function startRecording(index) {
 
       try {
         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-        const formData = new FormData();
-        formData.append('file', audioBlob, 'audio.webm');
-        formData.append('model', 'whisper-large-v3');
-        formData.append('language', 'es');
-        formData.append('response_format', 'json');
+const arrayBuffer = await audioBlob.arrayBuffer();
+const base64Audio = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
-        const response = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${GROQ_KEY}` },
-          body: formData
-        });
+const response = await fetch('/.netlify/functions/whisper', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ audio: base64Audio, mimeType: 'audio/webm' })
+});
 
         const result = await response.json();
         if (result.text) {
