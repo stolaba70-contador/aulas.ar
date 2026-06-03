@@ -623,7 +623,15 @@ El campo "correcta" es el índice (0-4) de la opción correcta.`;
       body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 2000 })
     });
     const data = await response.json();
+    console.log('Respuesta IA cruda:', data); // ← diagnóstico temporal
+
+    if (!response.ok) {
+      throw new Error(`Backend devolvió ${response.status}: ${data.error || JSON.stringify(data)}`);
+    }
     const texto = data.choices?.[0]?.message?.content || '';
+    if (!texto.trim()) {
+      throw new Error(`Together no devolvió contenido. Respuesta: ${JSON.stringify(data).substring(0, 300)}`);
+    }
     const clean = texto.replace(/```json|```/g, '').trim();
     multiplePreguntas = JSON.parse(clean);
     multipleRespondidas = {};
